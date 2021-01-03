@@ -1,7 +1,7 @@
 const { default: firebase } = require('firebase');
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyApEnCBT1787ed64yUiprilYZ_YBNnkxDk',
+	apiKey: process.env.FIREBASE_API_KEY,
 	authDomain: 'blacc-smith.firebaseapp.com',
 	databaseURL: 'https://blacc-smith.firebaseio.com',
 	projectId: 'blacc-smith',
