@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 
 const Container = styled.div`
@@ -7,8 +7,8 @@ const Container = styled.div`
 	cursor: pointer;
 	border-style: dashed;
 	border-radius: 16px;
-	width: 50%;
-	height: 200px;
+	width: 70%;
+	height: 300px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -42,8 +42,7 @@ const Message = styled.p`
 	margin-left: 12px;
 `;
 
-const VideoContainerUI = () => {
-	const [video, setVideo] = useState(null);
+const VideoContainerUI = ({ video, setVideo }) => {
 	const inputRef = useRef(null);
 
 	return (
@@ -68,8 +67,8 @@ const VideoContainerUI = () => {
 		</Container>
 	);
 };
-const VideoContainer = () => {
-	return <VideoContainerUI />;
+const VideoContainer = ({ video, setVideo }) => {
+	return <VideoContainerUI video={video} setVideo={setVideo} />;
 };
 
 export default VideoContainer;
