@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import VideoContainer from '../atoms/VideoContainer';
 
 const Container = styled.div`
 	display: flex;
@@ -10,7 +11,11 @@ const Container = styled.div`
 `;
 
 const HomeUI = () => {
-	return <Container>hi</Container>;
+	return (
+		<Container>
+			<VideoContainer />
+		</Container>
+	);
 };
 
 const Home = () => {
