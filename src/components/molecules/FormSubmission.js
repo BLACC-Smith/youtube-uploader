@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { tags } from '../../constants';
 
@@ -68,35 +68,73 @@ const Tag = styled.p`
 				: `transform: translateY(-5px); box-shadow: 0 3px 6px #c8c8c8`}
 	}
 `;
+const CTAWrapper = styled.div`
+	position: relative;
+	overflow: hidden;
+	border-radius: 50px;
+	box-shadow: 0 5px 10px #c8c8c8;
+`;
 const CTA = styled.p`
-	width: 50%;
+	color: #fff;
+	width: 100%;
+	background: #000;
 	font-weight: 600;
 	font-size: 20px;
-	color: #fff;
-	background: #000;
 	padding: 24px;
 	border-radius: 50px;
 	cursor: pointer;
-	box-shadow: 0 5px 10px #c8c8c8;
 	text-align: center;
 `;
-
+const Progress = styled.div`
+	background: #fff;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	transition: all 0.3s;
+	width: ${({ progress }) => progress}%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+const ProgressWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.15s;
+	opacity: ${({ show }) => (show ? 1 : 0)};
+`;
+const Icon = styled.i`
+	color: #000;
+	font-size: 18px;
+`;
+const Message = styled.p`
+	color: #000;
+	font-size: 18px;
+	font-weight: 500;
+	margin-left: 12px;
+`;
 const FormSubmissionUI = ({
 	setTitle,
 	setDescription,
 	chosenTags,
 	handleTags,
 	onSubmit,
+	title,
+	description,
+	progress,
 }) => {
 	return (
 		<Container>
 			<Divider />
 			<Title
 				placeholder="Video Title"
+				value={title}
 				onChange={(e) => setTitle(e.target.value)}
 			/>
 			<Description
 				placeholder="Video Description"
+				value={description}
 				onChange={(e) => setDescription(e.target.value)}
 				resi
 			/>
@@ -111,7 +149,15 @@ const FormSubmissionUI = ({
 					</Tag>
 				))}
 			</TagsContainer>
-			<CTA onClick={onSubmit}>UPLOAD SUBMISSION</CTA>
+			<CTAWrapper onClick={onSubmit}>
+				<CTA>UPLOAD SUBMISSION </CTA>
+				<Progress progress={progress}>
+					<ProgressWrapper show={progress > 99}>
+						<Icon className="material-icons">check_circle</Icon>
+						<Message>UPLOAD COMPLETE</Message>
+					</ProgressWrapper>
+				</Progress>
+			</CTAWrapper>
 		</Container>
 	);
 };
@@ -122,6 +168,9 @@ const FormSubmission = ({
 	chosenTags,
 	setChosenTags,
 	onSubmit,
+	progress,
+	title,
+	description,
 }) => {
 	const handleTags = (tag) => {
 		if (chosenTags.includes(tag))
@@ -132,8 +181,11 @@ const FormSubmission = ({
 		<FormSubmissionUI
 			setTitle={setTitle}
 			setDescription={setDescription}
+			title={title}
+			description={description}
 			chosenTags={chosenTags}
 			handleTags={handleTags}
+			progress={progress}
 			onSubmit={onSubmit}
 		/>
 	);
