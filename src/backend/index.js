@@ -47,3 +47,17 @@ export const uploadVideoToStorage = ({
 		throw new Error(`uploadVideoToStorage: ${error.toString()}`);
 	}
 };
+
+export const getSubmissions = (cb) => {
+	firestore
+		.collection('youtubeSubmissions')
+		.get()
+		.then(function (querySnapshot) {
+			const data = [];
+			querySnapshot.forEach(function (doc) {
+				data.push(doc.data());
+			});
+			console.log({ data });
+			cb(data);
+		});
+};

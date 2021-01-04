@@ -2,6 +2,9 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 const Container = styled.div`
+	position: sticky;
+	top: 0;
+	z-index: 5;
 	padding: 24px;
 	background: #fff;
 	font-size: 36px;
