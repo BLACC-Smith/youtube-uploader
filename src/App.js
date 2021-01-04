@@ -6,11 +6,11 @@ function App() {
 	return (
 		<Router>
 			<Switch>
-				<Route path="/discord">
-					<Reroute />
-				</Route>
 				<Route exact path="/">
 					<Home />
+				</Route>
+				<Route path="/discord">
+					<Reroute />
 				</Route>
 			</Switch>
 		</Router>
