@@ -5,6 +5,7 @@ const Container = styled.div`
 	margin-bottom: 12px;
 	margin: auto;
 	height: 200px;
+	background: #fff;
 	width: 75%;
 	position: relative;
 `;
@@ -77,7 +78,7 @@ const CTA = styled.p`
 	}
 `;
 
-const Submission = ({ data, show }) => {
+const Submission = ({ data, show, onClick }) => {
 	return (
 		<Container>
 			<Wrapper>
@@ -91,7 +92,7 @@ const Submission = ({ data, show }) => {
 						))}
 					</TagsContainer>
 				</MetadataContainer>
-				<CTA>REVIEW</CTA>
+				<CTA onClick={() => onClick(data)}>REVIEW</CTA>
 			</Wrapper>
 		</Container>
 	);
