@@ -60,7 +60,7 @@ const VideoContainerUI = ({ video, setVideo }) => {
 				ref={inputRef}
 				accept="video/*"
 				onChange={({ target }) => {
-					if (!target.files[0].type.startsWith('video')) return;
+					if (!target.files[0]?.type.startsWith('video')) return;
 					setTimeout(() => setVideo(target.files[0]), 500);
 				}}
 			/>
