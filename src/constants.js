@@ -1,3 +1,4 @@
+export const moderators = ['garrett1.tolbert@gmail.com'];
 export const tags = [
 	'user experience',
 	'cpp',
