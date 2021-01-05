@@ -1,2 +1,0 @@
-[context.production]
-  environment = { REACT_APP_GOOGLE_API_KEY = "AIzaSyDKRWE32_0_Ul1NXYmglsBJOxH73jb9y_I"}
