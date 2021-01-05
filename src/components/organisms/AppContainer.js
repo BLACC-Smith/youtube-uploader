@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import Login from './Login';
 import Home from './Home';
+import { moderators } from '../../constants';
 
 const PrivateRoute = ({ children, loggedIn, ...rest }) => {
 	return (
@@ -37,7 +38,8 @@ export default function AppContainer() {
 	useEffect(() => {
 		setLoading(true);
 		auth.onAuthStateChanged((user) => {
-			updateUser(user);
+			if (!user || !moderators.includes(user.email)) updateUser(null);
+			else updateUser(user);
 			setLoading(false);
 		});
 	}, [updateUser]);
