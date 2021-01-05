@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import axios from 'axios';
+import { auth } from '../../backend/config';
 
 const Overlay = styled.div`
 	width: 100%;
@@ -19,7 +21,7 @@ const Card = styled.div`
 	background: #fff;
 	border-radius: 26px;
 	box-shadow: 0 20px 40px #505050;
-	height: 75%;
+	max-height: 75%;
 	width: 50%;
 	overflow-y: scroll;
 	max-width: 650px;
@@ -73,11 +75,11 @@ const Tag = styled.p`
 `;
 
 const Footer = styled.div`
-	width: calc(100% - 48px);
+	width: 100%;
+	margin-top: 16px;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	position: absolute;
 	bottom: 24px;
 `;
 
@@ -120,7 +122,24 @@ const ReviewModalUI = ({ data, onClose, publish }) => {
 };
 
 const ReviewModal = ({ data, onClose }) => {
-	const publishToYoutube = () => {};
+	const publishToYoutube = async () => {
+		const token = await auth.currentUser.getIdToken();
+		console.log({ token });
+		try {
+			const { res } = await axios.post(
+				`https://www.googleapis.com/upload/youtube/v3/videos?mine=true&key=${process.env.REACT_APP_GOOGLE_API_KEY}`,
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+			console.log({ res });
+		} catch (error) {
+			console.log({ publishToYoutube: error });
+		}
+	};
 
 	return !data ? null : (
 		<ReviewModalUI data={data} onClose={onClose} publish={publishToYoutube} />

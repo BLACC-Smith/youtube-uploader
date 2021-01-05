@@ -42,11 +42,13 @@ const HomeUI = ({ submissions, selectedSubmission, setSelectedSubmission }) => {
 
 const Home = () => {
 	const [submissions, setSubmissions] = useState([]);
+	const [accessToken, setAccessToken] = useState('');
 	const [selectedSubmission, setSelectedSubmission] = useState(null);
 
 	useEffect(() => {
 		getSubmissions(setSubmissions);
 	}, []);
+
 	return (
 		<HomeUI
 			submissions={submissions}
