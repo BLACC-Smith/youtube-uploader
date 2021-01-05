@@ -19,13 +19,13 @@ const Divider = styled.div`
 	background: #e0e0e0;
 `;
 
-const Title = styled.input`
+const Input = styled.input`
 	border: none;
 	padding: 18px;
 	border-radius: 16px;
 	background: #eeeeee;
 	font-size: 16px;
-	width: 400px;
+	width: 190px;
 `;
 const Description = styled.textarea`
 	border: none;
@@ -114,12 +114,21 @@ const Message = styled.p`
 	font-weight: 500;
 	margin-left: 12px;
 `;
+const Row = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 400px;
+`;
+
 const FormSubmissionUI = ({
 	setTitle,
 	setDescription,
 	chosenTags,
 	handleTags,
 	onSubmit,
+	username,
+	setUsername,
 	title,
 	description,
 	progress,
@@ -127,11 +136,20 @@ const FormSubmissionUI = ({
 	return (
 		<Container>
 			<Divider />
-			<Title
-				placeholder="Video Title"
-				value={title}
-				onChange={(e) => setTitle(e.target.value)}
-			/>
+			<Row>
+				<Input
+					type="text"
+					placeholder="Discord Username"
+					value={username}
+					onChange={(e) => setUsername(e.target.value)}
+				/>
+				<Input
+					type="text"
+					placeholder="Video Title"
+					value={title}
+					onChange={(e) => setTitle(e.target.value)}
+				/>
+			</Row>
 			<Description
 				placeholder="Video Description"
 				value={description}
@@ -164,6 +182,8 @@ const FormSubmissionUI = ({
 
 const FormSubmission = ({
 	setTitle,
+	setUsername,
+	username,
 	setDescription,
 	chosenTags,
 	setChosenTags,
@@ -182,6 +202,8 @@ const FormSubmission = ({
 			setTitle={setTitle}
 			setDescription={setDescription}
 			title={title}
+			username={username}
+			setUsername={setUsername}
 			description={description}
 			chosenTags={chosenTags}
 			handleTags={handleTags}

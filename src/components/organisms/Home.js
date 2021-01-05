@@ -20,6 +20,8 @@ const HomeUI = ({
 	title,
 	video,
 	setTitle,
+	username,
+	setUsername,
 	setVideo,
 	progress,
 	chosenTags,
@@ -36,6 +38,8 @@ const HomeUI = ({
 				<FormSubmission
 					title={title}
 					setTitle={setTitle}
+					username={username}
+					setUsername={setUsername}
 					progress={progress}
 					chosenTags={chosenTags}
 					description={description}
@@ -50,6 +54,7 @@ const HomeUI = ({
 
 const Home = () => {
 	const [video, setVideo] = useState(null);
+	const [username, setUsername] = useState('');
 	const [title, setTitle] = useState('');
 	const [error, setError] = useState('');
 	const [progress, setProgress] = useState(0);
@@ -67,14 +72,16 @@ const Home = () => {
 		if (!chosenTags.length) setError('You must add at least one tag');
 		if (!description) setError('You must add a description for the video');
 		if (!title) setError('You must add a video title');
+		if (!username) setError('You must add your Discord username');
 		if (!video) setError('You must upload a video');
 		setTimeout(() => setError(''), 5000);
-		return video && title && description && chosenTags.length;
+		return video && username && title && description && chosenTags.length;
 	};
 	const uploadSubmission = () => {
 		if (validateInputs()) {
 			uploadVideoToStorage({
 				video,
+				username,
 				title,
 				description,
 				chosenTags,
@@ -86,9 +93,11 @@ const Home = () => {
 	return (
 		<HomeUI
 			title={title}
+			setTitle={setTitle}
+			username={username}
+			setUsername={setUsername}
 			video={video}
 			setVideo={setVideo}
-			setTitle={setTitle}
 			progress={progress}
 			chosenTags={chosenTags}
 			description={description}
