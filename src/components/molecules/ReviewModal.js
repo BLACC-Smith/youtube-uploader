@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import axios from 'axios';
+import { auth } from '../../backend/config';
 
 const Overlay = styled.div`
 	width: 100%;
@@ -19,11 +21,11 @@ const Card = styled.div`
 	background: #fff;
 	border-radius: 26px;
 	box-shadow: 0 20px 40px #505050;
-	height: 75%;
+	max-height: 75%;
 	width: 50%;
 	overflow-y: scroll;
 	max-width: 650px;
-	padding: 24px;
+	padding: 24px 24px 0 24px;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -73,12 +75,15 @@ const Tag = styled.p`
 `;
 
 const Footer = styled.div`
-	width: calc(100% - 48px);
+	width: 100%;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	position: absolute;
-	bottom: 24px;
+	background: linear-gradient(transparent, #fff);
+	position: sticky;
+	z-index: 20;
+	bottom: 0;
+	padding: 12px 0;
 `;
 
 const CTA = styled.p`
@@ -90,6 +95,10 @@ const CTA = styled.p`
 	cursor: pointer;
 	border-radius: 50px;
 `;
+const MetadataContainer = styled.div`
+	padding-bottom: 51;
+	z-index: 15;
+`;
 
 const ReviewModalUI = ({ data, onClose, publish }) => {
 	return (
@@ -98,14 +107,16 @@ const ReviewModalUI = ({ data, onClose, publish }) => {
 			onClick={({ target }) => target.childElementCount === 1 && onClose()}
 		>
 			<Card show={data}>
-				<Video width="100%" controls src={data.video} />
-				<Title>{data.title}</Title>
-				<Description>{data.description}</Description>
-				<TagsContainer>
-					{data.tags.map((el, idx) => (
-						<Tag key={idx}>{el}</Tag>
-					))}
-				</TagsContainer>
+				<MetadataContainer>
+					<Video width="100%" controls src={data.video} />
+					<Title>{data.title}</Title>
+					<Description>{data.description}</Description>
+					<TagsContainer>
+						{data.tags.map((el, idx) => (
+							<Tag key={idx}>{el}</Tag>
+						))}
+					</TagsContainer>
+				</MetadataContainer>
 				<Footer>
 					<CTA color="#000" bg="#fff" onClick={onClose}>
 						CANCEL
@@ -120,7 +131,24 @@ const ReviewModalUI = ({ data, onClose, publish }) => {
 };
 
 const ReviewModal = ({ data, onClose }) => {
-	const publishToYoutube = () => {};
+	const publishToYoutube = async () => {
+		const token = await auth.currentUser.getIdToken();
+		console.log({ token });
+		try {
+			const { res } = await axios.post(
+				`https://www.googleapis.com/upload/youtube/v3/videos?mine=true&key=${process.env.REACT_APP_GOOGLE_API_KEY}`,
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+			console.log({ res });
+		} catch (error) {
+			console.log({ publishToYoutube: error });
+		}
+	};
 
 	return !data ? null : (
 		<ReviewModalUI data={data} onClose={onClose} publish={publishToYoutube} />

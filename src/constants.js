@@ -1,3 +1,8 @@
+export const moderators = [
+	'garrett1.tolbert@gmail.com',
+	'blaccsmith.xyz@gmail.com',
+	'mikayladorange@gmail.com',
+];
 export const tags = [
 	'user experience',
 	'cpp',

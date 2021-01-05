@@ -1,7 +1,7 @@
 const { default: firebase } = require('firebase');
 
 const firebaseConfig = {
-	apiKey: process.env.FIREBASE_API_KEY,
+	apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
 	authDomain: 'blacc-smith.firebaseapp.com',
 	databaseURL: 'https://blacc-smith.firebaseio.com',
 	projectId: 'blacc-smith',
@@ -14,6 +14,8 @@ if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 
 const firestore = firebase.firestore();
 const storage = firebase.storage();
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
 
 export default firebase;
-export { firestore, storage };
+export { firestore, auth, provider, storage };

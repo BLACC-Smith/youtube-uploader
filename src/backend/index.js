@@ -57,7 +57,6 @@ export const getSubmissions = (cb) => {
 			querySnapshot.forEach(function (doc) {
 				data.push(doc.data());
 			});
-			console.log({ data });
 			cb(data);
 		});
 };
