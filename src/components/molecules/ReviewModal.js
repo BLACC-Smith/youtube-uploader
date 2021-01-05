@@ -25,7 +25,7 @@ const Card = styled.div`
 	width: 50%;
 	overflow-y: scroll;
 	max-width: 650px;
-	padding: 24px;
+	padding: 24px 24px 0 24px;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -76,11 +76,14 @@ const Tag = styled.p`
 
 const Footer = styled.div`
 	width: 100%;
-	margin-top: 16px;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	bottom: 24px;
+	background: linear-gradient(transparent, #fff);
+	position: sticky;
+	z-index: 20;
+	bottom: 0;
+	padding: 12px 0;
 `;
 
 const CTA = styled.p`
@@ -92,6 +95,10 @@ const CTA = styled.p`
 	cursor: pointer;
 	border-radius: 50px;
 `;
+const MetadataContainer = styled.div`
+	padding-bottom: 51;
+	z-index: 15;
+`;
 
 const ReviewModalUI = ({ data, onClose, publish }) => {
 	return (
@@ -100,14 +107,16 @@ const ReviewModalUI = ({ data, onClose, publish }) => {
 			onClick={({ target }) => target.childElementCount === 1 && onClose()}
 		>
 			<Card show={data}>
-				<Video width="100%" controls src={data.video} />
-				<Title>{data.title}</Title>
-				<Description>{data.description}</Description>
-				<TagsContainer>
-					{data.tags.map((el, idx) => (
-						<Tag key={idx}>{el}</Tag>
-					))}
-				</TagsContainer>
+				<MetadataContainer>
+					<Video width="100%" controls src={data.video} />
+					<Title>{data.title}</Title>
+					<Description>{data.description}</Description>
+					<TagsContainer>
+						{data.tags.map((el, idx) => (
+							<Tag key={idx}>{el}</Tag>
+						))}
+					</TagsContainer>
+				</MetadataContainer>
 				<Footer>
 					<CTA color="#000" bg="#fff" onClick={onClose}>
 						CANCEL
