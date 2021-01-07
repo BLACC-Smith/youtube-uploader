@@ -2,6 +2,7 @@ export const moderators = [
 	'garrett1.tolbert@gmail.com',
 	'blaccsmith.xyz@gmail.com',
 	'mikayladorange@gmail.com',
+	'brinascode@gmail.com',
 ];
 export const tags = [
 	'user experience',
