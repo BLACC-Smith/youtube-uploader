@@ -64,6 +64,7 @@ const Home = () => {
 	const clearData = () => {
 		setVideo(null);
 		setTitle('');
+		setUsername('');
 		setProgress(0);
 		setDescription('');
 		setChosenTags([]);
