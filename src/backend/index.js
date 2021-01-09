@@ -13,7 +13,9 @@ export const uploadVideoToStorage = ({
 	try {
 		const storageId = uuidv4();
 		const submissionsRef = storage.ref(`youtubeSubmissions/${storageId}`);
-		const uploadTask = submissionsRef.put(video, { username, title });
+		const uploadTask = submissionsRef.put(video, {
+			customMetadata: { username, title },
+		});
 
 		uploadTask.on(
 			'state_changed',
