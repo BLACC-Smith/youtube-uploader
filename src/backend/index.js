@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const uploadVideoToStorage = ({
 	video,
 	title,
+	username,
 	description,
 	chosenTags,
 	updateProgress,
@@ -12,7 +13,7 @@ export const uploadVideoToStorage = ({
 	try {
 		const storageId = uuidv4();
 		const submissionsRef = storage.ref(`youtubeSubmissions/${storageId}`);
-		const uploadTask = submissionsRef.put(video);
+		const uploadTask = submissionsRef.put(video, { username, title });
 
 		uploadTask.on(
 			'state_changed',
