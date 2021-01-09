@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import VideoContainer from '../atoms/VideoContainer';
 import FormSubmission from '../molecules/FormSubmission';
 import { uploadVideoToStorage } from '../../backend';
-import ErrorMessage from '../atoms/ErrorMessage';
+import Toast from '../atoms/Toast';
 
 const Container = styled.div`
 	display: grid;
@@ -23,6 +23,7 @@ const HomeUI = ({
 	username,
 	setUsername,
 	setVideo,
+	showSuccess,
 	progress,
 	chosenTags,
 	description,
@@ -33,7 +34,7 @@ const HomeUI = ({
 	return (
 		<>
 			<Container>
-				<ErrorMessage error={error} />
+				<Toast error={error} show={showSuccess} isError={error} />
 				<VideoContainer video={video} setVideo={setVideo} />
 				<FormSubmission
 					title={title}
@@ -60,6 +61,7 @@ const Home = () => {
 	const [progress, setProgress] = useState(0);
 	const [description, setDescription] = useState('');
 	const [chosenTags, setChosenTags] = useState([]);
+	const [showSuccess, setShowSuccess] = useState(false);
 
 	const clearData = () => {
 		setVideo(null);
@@ -68,6 +70,8 @@ const Home = () => {
 		setProgress(0);
 		setDescription('');
 		setChosenTags([]);
+		setShowSuccess(true);
+		setTimeout(() => setShowSuccess(false), 3000);
 	};
 	const validateInputs = () => {
 		if (!chosenTags.length) setError('You must add at least one tag');
@@ -105,6 +109,7 @@ const Home = () => {
 			uploadSubmission={uploadSubmission}
 			setChosenTags={setChosenTags}
 			error={error}
+			showSuccess={showSuccess}
 			setDescription={setDescription}
 		/>
 	);

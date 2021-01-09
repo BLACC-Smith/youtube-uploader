@@ -86,7 +86,7 @@ const CTA = styled.p`
 	text-align: center;
 `;
 const Progress = styled.div`
-	background: #fff;
+	background: ${({ progress }) => (progress > 99 ? '#4BB543' : '#fff')};
 	height: 100%;
 	position: absolute;
 	left: 0;
@@ -103,6 +103,12 @@ const ProgressWrapper = styled.div`
 	align-items: center;
 	transition: all 0.15s;
 	opacity: ${({ show }) => (show ? 1 : 0)};
+	${({ show }) =>
+		show
+			? `i, p {
+		color: #fff; 
+	}`
+			: ''}
 `;
 const Icon = styled.i`
 	color: #000;
