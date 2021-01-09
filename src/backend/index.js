@@ -51,6 +51,7 @@ export const uploadVideoToStorage = ({
 export const getSubmissions = (cb) => {
 	firestore
 		.collection('youtubeSubmissions')
+		.orderBy('createdAt', 'desc')
 		.get()
 		.then(function (querySnapshot) {
 			const data = [];
