@@ -40,6 +40,7 @@ const Message = styled.p`
 	font-size: 24px;
 	font-weight: 400;
 	margin-left: 12px;
+	text-align: center;
 `;
 
 const VideoContainerUI = ({ video, setVideo }) => {
